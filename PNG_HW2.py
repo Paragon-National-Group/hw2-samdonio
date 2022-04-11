@@ -1,3 +1,5 @@
+from math import sqrt
+## This is just for primality testing
 # Paragon National Group Spring 2022
 # Computer Science / Data Science Track
 # HW 2
@@ -19,8 +21,11 @@
 #     iterative_palindrome(12) -> false
 #     iterative_palindrome(2468642) -> true
 def iterative_palindrome(n):
-    #TODO
-    return
+    strvers = str(n)
+    for i in range(len(strvers) // 2):
+        if strvers[i] != strvers[-i - 1]:
+            return False
+    return True
 
 # This function is the same as iterative_palindrome() except instead of using a
 # loop, implement the function in a recursive way.
@@ -28,8 +33,15 @@ def iterative_palindrome(n):
 #     recursive_palindrome(12) -> false
 #     recursive_palindrome(2468642) -> true
 def recurisve_palindrome(n):
-    #TODO
-    return
+    strvers = str(n)
+    
+    if strvers[0] != strvers[-1]:
+        return False
+    
+    recursive_palin = strvers[1:-1]
+    if len(recursive_palin) <= 1:
+        return True
+    return recurisve_palindrome(int(recursive_palin))
 
 # Helper function for sum_factorials(). Takes a number as an argument and returns
 # the factorial of that number.
@@ -37,8 +49,10 @@ def recurisve_palindrome(n):
 #     factorial(4) -> 24
 #     factorial(7) -> 5040
 def factorial(n):
-    #TODO
-    return
+    ret = 1
+    for i in range(n):
+        ret = ret * (i + 1)
+    return ret
 
 # Helper function for sum_factorials(). Takes a number as an argument and returns
 # a boolean value of true or false that shows whether the inputted number is a 
@@ -47,14 +61,16 @@ def factorial(n):
 #     is_prime(12) -> false
 #     is_prime(23) -> true
 def is_prime(n):
-    #TODO
-    return
+    for i in range(2, sqrt(n)):
+        if (n % i) == 0:
+            return False
+    return True
 
 # Function that creates a node to help testing of sum_factorials()
 class Node:
     def __init__(self, content): 
         self.content = content
-        self.content = next
+        self.next = next
 
 # Function to insert a node to the beginning of a linked list
 def push(head_ptr, new_content):
@@ -75,5 +91,12 @@ def push(head_ptr, new_content):
 #     lst = push(lst, 6)
 #     sum_factorials(lst) -> 128
 def sum_factorials(head_ptr):
-    #TODO
-    return
+    ret = 0
+    curr_node = head_ptr
+    ret += curr_node.content
+    
+    while curr_node.next is not None:
+        curr_node = curr_node.next
+        ret += curr_node.content
+
+    return ret
